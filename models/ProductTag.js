@@ -18,14 +18,18 @@ ProductTag.init(
       references:{
         model:'product',
         key:'id',
-      }
+        onDelete: 'CASCADE', // Add appropriate onDelete constraint
+        onUpdate: 'CASCADE',
+      },
     },
     tag_id:{
       type: DataTypes.INTEGER,
       references:{
-        medel:'tag',
+        model:'tag',
         key:'id',
-      }
+        onDelete: 'CASCADE', // Add appropriate onDelete constraint
+        onUpdate: 'CASCADE',
+      },
     },
   },
   {
