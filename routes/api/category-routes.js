@@ -74,12 +74,12 @@ router.delete('/:id', async (req, res) => {
        id: req.params.id
       }
     });
-    if(!catData){
+    if(!catData == 0){
       res.status(404).json({message:`category does not exist`})
-      return;
-    }
+    }else{
+    
     res.status(200).json(catData) 
-  } catch(err) {
+    }}catch(err) {
     res.status(500).json(err)
   }
 });

@@ -4,7 +4,7 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 // The `/api/products` endpoint
 
 // get all products
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
   try {
@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 
 
 // get one product
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
   try{
@@ -115,13 +115,16 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   // delete one product by its `id` value
+  await ProductTag.destroy({ where:{
+    product_id: req.params.id
+  }})
   try{
-    const prodData = await Product.destroy({
+    const prodDataDel = await Product.destroy({
       where:{
        id: req.params.id
       }
     });
-    if(!prodData){
+    if(!prodDataDel){
       res.status(404).json({message:`category does not exist`})
       return;
     }
